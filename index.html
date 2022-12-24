@@ -15,84 +15,17 @@
     <title>Lista Telefonica</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <style>
-        .jumbotron {
-            width: 600px;
-            text-align: center;
-            margin-top: 20px;
-            margin-right: auto;
-            margin-left: auto;
-        }
-
-        .table {
-            margin-top: 20px;
-        }
-
-        .form-control {
-            margin-bottom: 5px;
-        }
-
-        .selecionado {
-            background-color: yellow;
-        }
-
-        .negrito {
-            font-weight: bold;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="css/app.css"></link>
     <script src="lib/angular/angular.js"></script>
     <script src="lib/angular/angular-messages.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/controllers/listaTelefonicaCtrl.js"></script>
+    <script src="js/services/contatosAPIService.js"></script>
+    <script src="js/services/operadorasAPIService.js"></script>
+    <script src="js/services/serialGeneratorService.js"></script>
+    <script src="config/serialGeneratorConfig.js"></script>
+    <script src="value/configValue.js"></script>
     <script src="lib/angular/i18n/angular-locale_pt-br.js"></script>
-    <script>
-        angular.module("listaTelefonica", ["ngMessages"]);
-        angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($scope, uppercaseFilter, $http) {
-            $scope.app = "Lista Telefônica";
-            $scope.contatos = [];
-            $scope.operadoras = [];
-            
-            var carregarContatos = function (params) {
-                $http.get("http://localhost:3412/contatos").then((data)=>{
-                    $scope.contatos = data.data;
-                },
-                (err) => {
-                    $scope.message = err;
-                    console.log("Houve um erro ao buscar contatos:", err);
-                });
-            };
-
-            var carregarOperadoras = function (params) {
-                $http.get("http://localhost:3412/operadoras").then((data)=>{
-                    $scope.operadoras = data.data;
-                });
-            };
-
-            $scope.adicionarContato = function (contato) {
-                $http.post("http://localhost:3412/contatos", contato)
-                    .then((data)=>{
-                        delete $scope.contato;
-                        $scope.contatoForm.$setPristine();
-                        carregarContatos();
-                });
-            };
-            $scope.apagarContatos = function (contatos) {
-                $scope.contatos = contatos.filter(function (contato) {
-                    if (!contato.selecionado) return contato;
-                });
-            };
-            $scope.isContatoSelecionado = function (contatos) {
-                return contatos.some(function (contato) {
-                    return contato.selecionado;
-                });
-            };
-            $scope.ordenarPor = function (campo){
-                $scope.criterioDeOrdenacao = campo;
-                $scope.direcaoDaOrdenacao = !$scope.direcaoDaOrdenacao;
-            };
-
-            carregarContatos()
-            carregarOperadoras()
-        });
-    </script>
 </head>
 
 <body ng-controller="listaTelefonicaCtrl">
@@ -103,6 +36,7 @@
         <table ng-show="contatos.length > 0" class="table">
             <tr>
                 <th></th>
+                <th>Serial</th>
                 <th><a href="" ng-click="ordenarPor('nome')">Nome</a></th>
                 <th><a href="" ng-click="ordenarPor('telefone')">Telefone</a></th>
                 <th>Operadora</th>
@@ -114,6 +48,7 @@
                     {{value}}
                 </td> -->
                 <td><input type="checkbox" ng-model="contato.selecionado" /></td>
+                <td>{{contato.serial}}</td>
                 <td>{{contato.nome}}</td>
                 <td>{{contato.telefone}}</td>
                 <td>{{contato.operadora.nome}}</td>
@@ -155,7 +90,7 @@
             ng-if="isContatoSelecionado(contatos)">
             Excluir Contato</button>
     </div>
-    <div ng-include="'footer.html'"></div>
+    <div ng-include="'view/footer.html'"></div>
 </body>
 
 </html>
