@@ -23,6 +23,8 @@
     <script src="js/services/contatosAPIService.js"></script>
     <script src="js/services/operadorasAPIService.js"></script>
     <script src="js/services/serialGeneratorService.js"></script>
+    <script src="js/filters/nameFilter.js"></script>
+    <script src="js/filters/ellipsisFilter.js"></script>
     <script src="js/config/serialGeneratorConfig.js"></script>
     <script src="value/configValue.js"></script>
     <script src="lib/angular/i18n/angular-locale_pt-br.js"></script>
@@ -49,7 +51,7 @@
                 </td> -->
                 <td><input type="checkbox" ng-model="contato.selecionado" /></td>
                 <td>{{contato.serial}}</td>
-                <td>{{contato.nome}}</td>
+                <td>{{contato.nome | name | ellipsis:10}}</td>
                 <td>{{contato.telefone}}</td>
                 <td>{{contato.operadora.nome}}</td>
                 <td>{{contato.data | date:'dd/MM/yyyy HH:mm'}}</td>

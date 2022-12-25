@@ -8,7 +8,7 @@ angular
     var carregarContatos = function (params) {
       contatosAPI.getContatos().then(
         (data) => {
-          $scope.contatos = data.data;
+            $scope.contatos = data.data;
         },
         (err) => {
           $scope.message = err;
