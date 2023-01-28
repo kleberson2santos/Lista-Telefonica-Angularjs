@@ -32,15 +32,62 @@
     <script src="js/config/serialGeneratorConfig.js"></script>
     <script src="value/configValue.js"></script>
     <script src="js/directives/uiAlertDirective.js"></script>
+    <script src="js/directives/uiAccordionDirective.js"></script>
 
 </head>
 
 <body ng-controller="listaTelefonicaCtrl">
     <div class="jumbotron">
         <h4>{{app}}</h4>
-        <ui-alert title="Ops, aconteceu um problema!">
+        <ui-alert ng-if="error" title="Ops, aconteceu um problema!">
             {{error}}
         </ui-alert>
+        <ui-accordions>
+            <ui-accordion title="Accordion 1">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi at laboriosam cumque nisi voluptas
+                placeat
+                sed ratione beatae veniam, quibusdam ea esse suscipit molestias maxime harum optio repellat, laborum
+                voluptatum molestiae? Dolorum illum enim ipsum inventore quis eveniet possimus. Laborum impedit
+                recusandae,
+                nulla ab fuga illo distinctio perspiciatis necessitatibus pariatur cumque dolores facere! Nihil ratione
+                delectus culpa numquam ducimus tempore mollitia eaque voluptates? Excepturi error, quos eos nesciunt
+                eligendi perferendis?
+            </ui-accordion>
+            <ui-accordion title="Accordion 2">
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Optio magni, maiores dolorem ducimus quos
+                sunt!
+                Quaerat modi provident assumenda sit perferendis veniam. Facere optio sint quod ipsum, est excepturi
+                vitae?
+                Minima suscipit, qui magnam amet aut itaque nostrum tempore mollitia necessitatibus atque unde possimus
+                in,
+                adipisci facilis veniam natus fugit numquam provident nam iusto, eaque aliquam officia quos. Eligendi
+                illo
+                assumenda laborum laudantium itaque odit incidunt nisi excepturi placeat enim?
+            </ui-accordion>
+            <ui-accordion title="Accordion 2">
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Optio magni, maiores dolorem ducimus quos
+                sunt!
+                Quaerat modi provident assumenda sit perferendis veniam. Facere optio sint quod ipsum, est excepturi
+                vitae?
+                Minima suscipit, qui magnam amet aut itaque nostrum tempore mollitia necessitatibus atque unde possimus
+                in,
+                adipisci facilis veniam natus fugit numquam provident nam iusto, eaque aliquam officia quos. Eligendi
+                illo
+                assumenda laborum laudantium itaque odit incidunt nisi excepturi placeat enim?
+            </ui-accordion>
+            <ui-accordion title="Accordion 2">
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Optio magni, maiores dolorem ducimus quos
+                sunt!
+                Quaerat modi provident assumenda sit perferendis veniam. Facere optio sint quod ipsum, est excepturi
+                vitae?
+                Minima suscipit, qui magnam amet aut itaque nostrum tempore mollitia necessitatibus atque unde possimus
+                in,
+                adipisci facilis veniam natus fugit numquam provident nam iusto, eaque aliquam officia quos. Eligendi
+                illo
+                assumenda laborum laudantium itaque odit incidunt nisi excepturi placeat enim?
+            </ui-accordion>
+        </ui-accordions>
+        <hr>
         <input class="form-control" type="text" ng-model="criterioDeBusca" placeholder="O que você está buscando?">
         <table ng-show="contatos.length > 0" class="table">
             <tr>
