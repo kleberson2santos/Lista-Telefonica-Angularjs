@@ -10,14 +10,32 @@ angular
         data: 1034218800000,
       };
 
+      var init = function () {
+        calcularImpostos($scope.contatos);
+      };
+
+      var calcularImpostos = function (contatos) {
+        contatos.forEach((contato) => {
+          contato.operadora.precoComImposto = calcularImposto(
+            contato.operadora.preco
+          );
+        });
+      };
+
+      var calcularImposto = function (preco) {
+        var imposto = 1.2;
+        return preco * imposto;
+      };
+
       $scope.apagarContatos = function (contatos) {
         $scope.contatos = contatos.filter(function (contato) {
           if (!contato.selecionado) return contato;
         });
+        $scope.verificarContatoSelecionado($scope.contatos);
       };
 
-      $scope.isContatoSelecionado = function (contatos) {
-        return contatos.some(function (contato) {
+      $scope.verificarContatoSelecionado = function (contatos) {
+        $scope.hasContatoSelecionado = contatos.some(function (contato) {
           return contato.selecionado;
         });
       };
@@ -26,5 +44,7 @@ angular
         $scope.criterioDeOrdenacao = campo;
         $scope.direcaoDaOrdenacao = !$scope.direcaoDaOrdenacao;
       };
+
+      init();
     }
   );

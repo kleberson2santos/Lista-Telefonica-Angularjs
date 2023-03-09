@@ -3,53 +3,10 @@
     <ui-alert ng-if="error" title="Ops, aconteceu um problema!">
         {{error}}
     </ui-alert>
-    <ui-accordions>
-        <ui-accordion title="Accordion 1">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi at laboriosam cumque nisi voluptas
-            placeat
-            sed ratione beatae veniam, quibusdam ea esse suscipit molestias maxime harum optio repellat, laborum
-            voluptatum molestiae? Dolorum illum enim ipsum inventore quis eveniet possimus. Laborum impedit
-            recusandae,
-            nulla ab fuga illo distinctio perspiciatis necessitatibus pariatur cumque dolores facere! Nihil ratione
-            delectus culpa numquam ducimus tempore mollitia eaque voluptates? Excepturi error, quos eos nesciunt
-            eligendi perferendis?
-        </ui-accordion>
-        <ui-accordion title="Accordion 2">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Optio magni, maiores dolorem ducimus quos
-            sunt!
-            Quaerat modi provident assumenda sit perferendis veniam. Facere optio sint quod ipsum, est excepturi
-            vitae?
-            Minima suscipit, qui magnam amet aut itaque nostrum tempore mollitia necessitatibus atque unde possimus
-            in,
-            adipisci facilis veniam natus fugit numquam provident nam iusto, eaque aliquam officia quos. Eligendi
-            illo
-            assumenda laborum laudantium itaque odit incidunt nisi excepturi placeat enim?
-        </ui-accordion>
-        <ui-accordion title="Accordion 2">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Optio magni, maiores dolorem ducimus quos
-            sunt!
-            Quaerat modi provident assumenda sit perferendis veniam. Facere optio sint quod ipsum, est excepturi
-            vitae?
-            Minima suscipit, qui magnam amet aut itaque nostrum tempore mollitia necessitatibus atque unde possimus
-            in,
-            adipisci facilis veniam natus fugit numquam provident nam iusto, eaque aliquam officia quos. Eligendi
-            illo
-            assumenda laborum laudantium itaque odit incidunt nisi excepturi placeat enim?
-        </ui-accordion>
-        <ui-accordion title="Accordion 2">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Optio magni, maiores dolorem ducimus quos
-            sunt!
-            Quaerat modi provident assumenda sit perferendis veniam. Facere optio sint quod ipsum, est excepturi
-            vitae?
-            Minima suscipit, qui magnam amet aut itaque nostrum tempore mollitia necessitatibus atque unde possimus
-            in,
-            adipisci facilis veniam natus fugit numquam provident nam iusto, eaque aliquam officia quos. Eligendi
-            illo
-            assumenda laborum laudantium itaque odit incidunt nisi excepturi placeat enim?
-        </ui-accordion>
-    </ui-accordions>
     <hr>
-    <input class="form-control" type="text" ng-model="criterioDeBusca" placeholder="O que você está buscando?">
+    <input class="form-control" type="text" ng-model="criterioDeBusca"
+        ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 0}}"
+        placeholder="O que você está buscando?">
     <table ng-show="contatos.length > 0" class="table">
         <tr>
             <th></th>
@@ -57,6 +14,7 @@
             <th><a href="" ng-click="ordenarPor('nome')">Nome</a></th>
             <th><a href="" ng-click="ordenarPor('telefone')">Telefone</a></th>
             <th>Operadora</th>
+            <th>Preço</th>
             <th>Data</th>
             <th></th>
         </tr>
@@ -65,12 +23,14 @@
             <!-- <td ng-repeat="(key, value) in contato">
                 {{value}}
             </td> -->
-            <td><input type="checkbox" ng-model="contato.selecionado" /></td>
-            <td>{{contato.serial}}</td>
-            <td><a href="#!/detalhesContato/{{contato.id}}">{{contato.nome | name}}</a></td>
-            <td>{{contato.telefone}}</td>
-            <td>{{contato.operadora.nome}}</td>
-            <td>{{contato.data | date:'dd/MM/yyyy HH:mm'}}</td>
+            <td><input type="checkbox" ng-model="contato.selecionado"
+                    ng-selected="verificarContatoSelecionado(contatos)" /></td>
+            <td>{{::contato.serial}}</td>
+            <td><a href="#!/detalhesContato/{{contato.id}}">{{::contato.nome | name}}</a></td>
+            <td>{{::contato.telefone}}</td>
+            <td>{{::contato.operadora.nome}}</td>
+            <td>{{::contato.operadora.precoComImposto | currency}}</td>
+            <td>{{::contato.data | date:'dd/MM/yyyy'}}</td>
             <td>
                 <div style="width: 20px; height: 20px;" ng-style="{'background-color': contato.cor}"></div>
             </td>
@@ -80,6 +40,6 @@
     <hr />
     <a class="btn btn-primary btn-block" href="#!/novoContato">Novo Contato</a>
 
-    <button class="btn btn-danger btn-block" ng-click="apagarContatos(contatos)" ng-if="isContatoSelecionado(contatos)">
+    <button class="btn btn-danger btn-block" ng-click="apagarContatos(contatos)" ng-if="hasContatoSelecionado">
         Excluir Contato</button>
 </div>
