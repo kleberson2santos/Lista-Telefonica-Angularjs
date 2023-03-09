@@ -35,13 +35,22 @@
     <script src="js/filters/ellipsisFilter.js"></script>
     <script src="js/config/serialGeneratorConfig.js"></script>
     <script src="js/config/routeConfig.js"></script>
+    <script src="js/config/interceptorConfig.js"></script>
     <script src="value/configValue.js"></script>
     <script src="js/directives/uiAlertDirective.js"></script>
+    <script src="js/interceptors/timestampInterceptor.js"></script>
+    <script src="js/interceptors/errorInterceptor.js"></script>
+    <script src="js/interceptors/loadingInterceptor.js"></script>
 </head>
 
 <body>
-    <div ng-view></div>
-    <div style="margin-top: 24px;" ng-include="'view/footer.html'"></div>
+    <div class="jumbotron" ng-show="loading">
+        <h5>Carregando, por favor aguarde...</h5>
+    </div>
+    <div ng-hide="loading">
+        <div ng-view></div>
+        <div style="margin-top: 24px;" ng-include="'view/footer.html'"></div>
+    </div>
 </body>
 
 </html>
